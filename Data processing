@@ -1,0 +1,23 @@
+# Sample Python Script for YouTube API / Data Processing
+
+def greet_user(name):
+    """Function to return a personalized greeting."""
+    return f"Hello, {name}! Welcome to My New Project."
+
+def calculate_stats(views, likes):
+    """Calculate engagement rate based on views and likes."""
+    if views == 0:
+        return 0
+    engagement_rate = (likes / views) * 100
+    return round(engagement_rate, 2)
+
+if __name__ == "__main__":
+    user_name = "Friend"
+    print(greet_user(user_name))
+    
+    # Sample YouTube video stats
+    video_views = 1500
+    video_likes = 120
+    
+    rate = calculate_stats(video_views, video_likes)
+    print(f"Video Engagement Rate: {rate}%")
