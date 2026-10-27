@@ -1,0 +1,59 @@
+# Import the calculation logic or keep it self-contained for batch processing
+def calculate_stats(views, likes):
+  """Calculate engagement rate based on views and likes."""
+  if views == 0:
+    return 0.0
+  engagement_rate = (likes / views) * 100
+  return round(engagement_rate, 2)
+
+
+def analyze_channel_data(videos):
+  """Analyzes a list of videos to find top performers and averages."""
+  if not videos:
+    print("No video data found.")
+    return
+
+  print(f"📊 Analyzing {len(videos)} videos...\n")
+
+  total_engagement = 0
+  top_video = None
+  highest_rate = -1
+
+  for video in videos:
+    title = video["title"]
+    views = video["views"]
+    likes = video["likes"]
+
+    rate = calculate_stats(views, likes)
+    total_engagement += rate
+
+    print(f"• Video: '{title}' | Views: {views} | Likes: {likes} | Rate: {rate}%")
+
+    # Track the best performing video
+    if rate > highest_rate:
+      highest_rate = rate
+      top_video = video
+
+  # Calculate average engagement across all videos
+  avg_engagement = round(total_engagement / len(videos), 2)
+
+  print("\n" + "=" * 40)
+  print("📈 SUMMARY REPORT")
+  print("=" * 40)
+  print(f"Average Channel Engagement Rate: {avg_engagement}%")
+  print(
+      "🏆 Top Performing Video:"
+      f" '{top_video['title']}' ({highest_rate}% engagement)"
+  )
+
+
+if __name__ == "__main__":
+  # Sample dataset representing multiple YouTube videos
+  youtube_videos = [
+      {"title": "Python for Beginners", "views": 1500, "likes": 120},
+      {"title": "Advanced API Tutorial", "views": 800, "likes": 95},
+      {"title": "Coding VLOG #1", "views": 3200, "likes": 150},
+      {"title": "Git & GitHub Crash Course", "views": 5000, "likes": 480},
+  ]
+
+  analyze_channel_data(youtube_videos)
